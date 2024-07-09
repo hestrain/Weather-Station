@@ -10,16 +10,20 @@
       crossorigin="anonymous"
     />
     <title>Document</title>
+    <link rel="stylesheet" href="./assets/style.css">
   </head>
   <body>
     <header>
       <h1>Big Centered WEATHER Header</h1>
     </header>
     <div class="container text-center">
-      <div class="row">
+      <div class="row g-0">
         <div class="col-3">
+          <div class="pm-3">
+          <label for="search">Search for a City</label>
           <div class="container-fluid">
             <form class="d-flex" role="search">
+              
               <input
                 class="form-control me-2"
                 type="search"
@@ -31,24 +35,92 @@
               </button>
             </form>
             <ul class="list-group">
-              <li class="list-group-item">An item</li>
-              <li class="list-group-item">A second item</li>
-              <li class="list-group-item">A third item</li>
-              <li class="list-group-item">A fourth item</li>
-              <li class="list-group-item">And a fifth one</li>
+              <li class="list-group-item">An city</li>
+              <li class="list-group-item">A second city</li>
+              <li class="list-group-item">A third city</li>
+              <li class="list-group-item">A fourth city</li>
+              <li class="list-group-item">And a fifth city</li>
             </ul>
           </div>
-        </div>
-        <div class="col-9">
-          <div class="container fluid">
-            <p>big container place</p>
           </div>
-          <div class="row">
-            <div class="col">col</div>
-            <div class="col">col</div>
-            <div class="col">col</div>
-            <div class="col">col</div>
-            <div class="col">col</div>
+        </div>
+        <div class="col-9" style="text-align: left;">
+          <div class="container fluid p-3">
+            <div class="card" style="width: 100%;">
+              <div class="card-header">
+                SEARCHED PLACE
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">tremp</li>
+                <li class="list-group-item">ewind</li>
+                <li class="list-group-item">humidity</li>
+              </ul>
+            </div>
+          </div>
+          <div class="row p-3">
+            <h3>5-Day Forecast</h3>
+            </div>
+            <div class="row p-3">
+            <div class="col">
+              <div class="card" style="width: 10rem;">
+                <div class="card-header">
+                  day 1
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">An item</li>
+                  <li class="list-group-item">A second item</li>
+                  <li class="list-group-item">A third item</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card" style="width: 10rem;">
+                <div class="card-header">
+                  day 2
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">An item</li>
+                  <li class="list-group-item">A second item</li>
+                  <li class="list-group-item">A third item</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card" style="width: 10rem;">
+                <div class="card-header">
+                  day 3
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">An item</li>
+                  <li class="list-group-item">A second item</li>
+                  <li class="list-group-item">A third item</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card" style="width: 10rem;">
+                <div class="card-header">
+                  day 4
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">An item</li>
+                  <li class="list-group-item">A second item</li>
+                  <li class="list-group-item">A third item</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card" style="width: 10rem;">
+                <div class="card-header">
+                  day 5
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">An item</li>
+                  <li class="list-group-item">A second item</li>
+                  <li class="list-group-item">A third item</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -59,5 +131,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script src="./assets/script.js"></script>
   </body>
 </html>
