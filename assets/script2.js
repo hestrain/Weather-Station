@@ -124,15 +124,15 @@ const citySearch = function (city) {
     });
 };
 
-//function to get TODAYs weather 
+//function to get TODAYs weather
 const getTodaysWeather = function (newLocation) {
-    //apiURL with our variables
+  //apiURL with our variables
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${newLocation.lat}&lon=${newLocation.lon}&appid=${apiKey}&units=${units}`;
   //get api then...
   fetch(apiUrl).then(function (response) {
     //check response...
     if (response.ok) {
-        ///then get data
+      ///then get data
       response.json().then(function (data) {
         //call display TODAYs weather function
         const locationData = newLocation;
@@ -148,14 +148,14 @@ const getTodaysWeather = function (newLocation) {
 
 //function to display TODAYs weather
 const displayTodaysWeather = function (data, locationData) {
-    //declare needed variables
+  //declare needed variables
   const temp = data.main.temp;
   const humidity = data.main.humidity;
   const wind = data.wind.speed;
   const iconId = data.weather[0].icon;
   const desc = data.weather[0].description;
   const iconUrl = `https://openweathermap.org/img/wn/${iconId}@2x.png`;
-  const day = dayjs().format('ddd, MMM D, YYYY');
+  const day = dayjs().format("ddd, MMM D, YYYY");
 
   //log to check
   console.log(`
@@ -165,7 +165,7 @@ const displayTodaysWeather = function (data, locationData) {
     desc: ${desc}
     `);
 
-    //locate the elements on the page I want to change data on
+  //locate the elements on the page I want to change data on
   const locName = document.querySelector("#searched-city");
   const locDesc = document.querySelector("#today-desc");
   const locTemp = document.querySelector("#today-temp");
@@ -173,11 +173,11 @@ const displayTodaysWeather = function (data, locationData) {
   const locHum = document.querySelector("#today-hum");
   const image = document.querySelector("#today-icon");
   const imageParent = document.querySelector("#image-container");
-  
+
   //set image info based on data
   image.className = "weather-icon";
   image.src = iconUrl;
-  imageParent.appendChild(image); //adds image to page 
+  imageParent.appendChild(image); //adds image to page
 
   //fill all feilds needed for todays weather
   locName.textContent = `${data.name} on ${day}`;
@@ -192,22 +192,22 @@ const displayTodaysWeather = function (data, locationData) {
 //function to get forecast
 const getForecast = function (locationData) {
   //api url with our variables
-    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${locationData.lat}&lon=${locationData.lon}&cnt=5&appid=${apiKey}`;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${locationData.lat}&lon=${locationData.lon}&appid=${apiKey}&units=${units}`;
 
-    //log to check it
+  //log to check it
   console.log(`FORCAST API URL: ${apiUrl}`);
 
   //get api then...
   fetch(apiUrl).then(function (response) {
     //repose./,,
     if (response.ok) {
-        //then JSON the data
+      //then JSON the data
       response.json().then(function (data) {
-        //call the displayForcast function
-        // displayForecast(data);
-
         //log to check
         console.log(data);
+
+        //call the displayForcast function
+        displayForecast(data);
       });
     } else {
       alert(`Error:${response.statusText}`);
@@ -215,31 +215,51 @@ const getForecast = function (locationData) {
   });
 };
 
+//forcast display function
 const displayForecast = function (data) {
-    for (let i = 0; i < data.list.length; i++) {
-        const dayCast = {
-            temp: data.list[i].temp.day,
-            humidity: data.list[i].humidity,
-            wind: data.list[i].weather.description,
-            iconId: data.list[i].weather.icon,
-            wind: data.list[i].speed,
-            
-            
-        }
-      console.log(dayCast);
+  //loop for the whole array (5 days)
+  const refinedDays = [];
+  for (let i = 0; i < data.list.length; i++) {
+    if (data.list[i].dt_txt.includes("12:00:00")) {
+      refinedDays.push(data.list[i]);
+    }
+  }
+  console.log(refinedDays);
 
-    const locTemp = document.querySelector("#today-temp");
-    const locWind = document.querySelector("#today-wind");
-    const locHum = document.querySelector("#today-hum");
-    locName.textContent = data.name;
-    locTemp.textContent = `Tempterature: ${temp} degrees celcius`;
-    locWind.textContent = `Wind: ${wind} ?units`;
-    locHum.textContent = `Humidity: ${humidity}%`;
+  for (let i = 0; i < refinedDays.length; i++) {
+    const dayCast = {
+      temp: refinedDays[i].main.temp,
+      humidity: refinedDays[i].main.humidity,
+      desc: refinedDays[i].weather[0].description,
+      iconId: refinedDays[i].weather[0].icon,
+      wind: refinedDays[i].wind.speed,
+      date: refinedDays[i].dt_txt,
+    };
+    //log to check
+    console.log(dayCast);
+
+    //get page info
+    const nextTemp = document.querySelector(`#temp${i}`);
+    const nextWind = document.querySelector(`#wind${i}`);
+    const nextHum = document.querySelector(`#hum${i}`);
+    const nextDesc = document.querySelector(`#desc${i}`);
+    const nextIcon = document.querySelector(`#icon${i}`);
+    const nextIconParent = document.querySelector(`#image-container${i}`);
+    const nextDate = document.querySelector(`#date${i}`);
+    //fill in forecast info 
+    nextDate.textContent = dayjs(dayCast.date).format("ddd, MMM D");
+    nextDate.className = "rowdies-bold p-2";
+    nextTemp.textContent = `Tempterature: ${dayCast.temp} °C`;
+    nextWind.textContent = `Wind: ${dayCast.wind} m/s`;
+    nextHum.textContent = `Humidity: ${dayCast.humidity}%`;
+    nextDesc.textContent = dayCast.desc;
+    //special weather icon info
+    const nextIconUrl = `https://openweathermap.org/img/wn/${dayCast.iconId}@2x.png`;
+    nextIcon.className = "weather-icon";
+    nextIcon.src = nextIconUrl;
+    nextIconParent.appendChild(nextIcon); //adds image to page
   }
 };
-
-
-    
 
 //event listener
 searchEl.addEventListener("click", formSubmitHandler);

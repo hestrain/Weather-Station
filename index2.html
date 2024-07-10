@@ -16,9 +16,12 @@
       href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
     />
     <!-- font(s) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Righteous&family=Rowdies:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- my css -->
     <link rel="stylesheet" href="./assets/style.css" />
     <title>Weather Station</title>
@@ -41,13 +44,17 @@
                   placeholder="Search"
                   aria-label="Search"
                 />
-                <button class="btn btn-outline-success" id="search-btn" type="submit">
+                <button
+                  class="btn btn-outline-success"
+                  id="search-btn"
+                  type="submit"
+                >
                   Search
                 </button>
               </form>
               <ul class="list-group" id="city-buttons">
                 <button class="list-group-item" id="Montreal">Montreal</button>
-                <button class="list-group-item" >A second city</button>
+                <button class="list-group-item">A second city</button>
                 <button class="list-group-item">A third city</button>
                 <button class="list-group-item">A fourth city</button>
                 <button class="list-group-item">And a fifth city</button>
@@ -58,10 +65,14 @@
         <div class="col-9" style="text-align: left">
           <div class="container fluid p-3" id="todays-weather">
             <div class="card" style="width: 100%">
-              <div class="card-header rowdies-bold" id="searched-city">SEARCHED PLACE</div>
+              <div class="card-header rowdies-bold" id="searched-city">
+                SEARCHED PLACE
+              </div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item" id="today-desc">desc</li>
-                <li class="list-group-item" id="image-container"><img id="today-icon"></li>
+                <li class="list-group-item" id="image-container">
+                  <img id="today-icon" />
+                </li>
                 <li class="list-group-item" id="today-temp">tremp</li>
                 <li class="list-group-item" id="today-wind">ewind</li>
                 <li class="list-group-item" id="today-hum">humidity</li>
@@ -74,26 +85,40 @@
           <div class="row p-3" id="five-day">
             <div class="col">
               <div class="card" style="width: 10rem">
-                <div class="card-header">day 1</div>
+                <div class="card-header" id="date0">day 1</div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item" id="desc0">desc0</li>
+                  <li class="list-group-item" id="image-container0">
+                    <img id="icon0" />
+                  </li>
+                  <li class="list-group-item" id="temp0">Temp</li>
+                  <li class="list-group-item" id="wind0">Wind</li>
+                  <li class="list-group-item" id="hum0">Humidity</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card" style="width: 10rem">
+                <div class="card-header" id="date1">day 2</div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item" id="desc1">desc1</li>
-                <li class="list-group-item" id="image-container1">
-                  <img id="today-icon1">
-                </li>
+                  <li class="list-group-item" id="image-container1">
+                    <img id="icon1" />
+                  </li>
                   <li class="list-group-item" id="temp1">Temp</li>
-                  <li class="list-group-item" id="wind1" >Wind</li>
+                  <li class="list-group-item" id="wind1">Wind</li>
                   <li class="list-group-item" id="hum1">Humidity</li>
                 </ul>
               </div>
             </div>
             <div class="col">
               <div class="card" style="width: 10rem">
-                <div class="card-header">day 2</div>
+                <div class="card-header" id="date2">day 3</div>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item" id="desc1">desc2</li>
-                <li class="list-group-item" id="image-container2">
-                  <img id="today-icon2">
-                </li>
+                  <li class="list-group-item" id="desc2">desc2</li>
+                  <li class="list-group-item" id="image-container2">
+                    <img id="icon2" />
+                  </li>
                   <li class="list-group-item" id="temp2">Temp</li>
                   <li class="list-group-item" id="wind2">Wind</li>
                   <li class="list-group-item" id="hum2">Humidity</li>
@@ -102,8 +127,12 @@
             </div>
             <div class="col">
               <div class="card" style="width: 10rem">
-                <div class="card-header">day 3</div>
+                <div class="card-header" id="date3">day 4</div>
                 <ul class="list-group list-group-flush">
+                  <li class="list-group-item" id="desc3">desc1</li>
+                  <li class="list-group-item" id="image-container3">
+                    <img id="icon3" />
+                  </li>
                   <li class="list-group-item" id="temp3">Temp</li>
                   <li class="list-group-item" id="wind3">Wind</li>
                   <li class="list-group-item" id="hum3">Humidity</li>
@@ -112,21 +141,15 @@
             </div>
             <div class="col">
               <div class="card" style="width: 10rem">
-                <div class="card-header">day 4</div>
+                <div class="card-header" id="date4">day 5</div>
                 <ul class="list-group list-group-flush">
+                  <li class="list-group-item" id="desc4">desc1</li>
+                  <li class="list-group-item" id="image-container4">
+                    <img id="icon4" />
+                  </li>
                   <li class="list-group-item" id="temp4">Temp</li>
                   <li class="list-group-item" id="wind4">Wind</li>
                   <li class="list-group-item" id="hum4">Humidity</li>
-                </ul>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card" style="width: 10rem">
-                <div class="card-header">day 5</div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item" id="temp5">Temp</li>
-                  <li class="list-group-item" id="wind5">Wind</li>
-                  <li class="list-group-item" id="hum5">Humidity</li>
                 </ul>
               </div>
             </div>
@@ -146,7 +169,9 @@
     ></script>
     <!-- day.js -->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-<script>dayjs().format()</script>
+    <script>
+      dayjs().format();
+    </script>
     <script src="./assets/script2.js"></script>
   </body>
 </html>
