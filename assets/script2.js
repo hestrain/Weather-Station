@@ -3,7 +3,7 @@ const searchEl = document.querySelector("#search-btn");
 const searchLine = document.querySelector("#city-search");
 //declaring my API key for the website
 const apiKey = "20368bb379fe63aed5f9f2f6a9a9ff61";
-// other api key : a154f728242f9fcc90bbd015b0e30c82
+const apiKey2 = "a154f728242f9fcc90bbd015b0e30c82";
 //container for past search buttons
 //const forecast = document.querySelector("#5-day"); // need to change to my own code
 const cityButtonsEl = document.querySelector("#city-buttons");
@@ -111,26 +111,45 @@ const displayTodaysWeather = function (data) {
   const temp = data.main.temp;
   const humidity = data.main.humidity;
   const wind = data.wind.speed;
+  const iconId = data.weather[0].icon;
+  const desc = data.weather[0].description;
+
+  const iconUrl = `https://openweathermap.org/img/wn/${iconId}@2x.png`;
 
   console.log(`
     temperature: ${temp}
     humidity:${humidity}
     wind: ${wind}
+    desc: ${desc}
     `);
 const locName = document.querySelector("#searched-city");
+const locDesc = document.querySelector("#today-desc");
 const locTemp = document.querySelector("#today-temp");
 const locWind = document.querySelector("#today-wind");
 const locHum = document.querySelector("#today-hum");
 
+const image = document.querySelector("#today-icon");
+const imageParent = document.querySelector("#image-container");
+image.className = "weather-icon";
+image.src = iconUrl;            
+imageParent.appendChild(image);
+
+
+
 locName.textContent = data.name;
-locTemp.textContent = `Tempterature: ${temp} degrees celcius`;
-locWind.textContent = `Wind: ${wind} ?units`;
+locDesc.textContent = `Weather is: ${data.weather[0].description}`;
+locTemp.textContent = `Tempterature: ${temp} °C`;
+locWind.textContent = `Wind: ${wind} kmph`;
 locHum.textContent = `Humidity: ${humidity}%`;
+
+
 
 };
 
 const getForecast = function (newLocation) {
-    const apiUrl = `api.openweathermap.org/data/2.5/forecast/daily?lat=${newLocation.lat}&lon=${newLocation.lon}&appid=${apiKey}&units=${units}`;
+    const apiUrl = `api.openweathermap.org/data/2.5/forecast/daily?lat=${newLocation.lat}&lon=${newLocation.lon}&cnt=5&appid=${apiKey2}&units=${units}`;
+
+    console.log(`FORCAST API URL: ${apiUrl}`);
    
     fetch(apiUrl).then(function (response) {
       if (response.ok) {
