@@ -15,8 +15,17 @@ let limit = 5;
 let days = 5;
 let units = "metric";
 
+//function to turn it to title case
+function toTitleCase(str) {
+  return str.replace(
+    /\w\S*/g,
+    (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+  );
+}
+
 //check local storage for past city name searches
-const pastLocations = localStorage.getItem("pastLocations") || [];
+let pastLocations = JSON.stringify(localStorage.getItem("pastLocations") ) || [];
+
 console.log(pastLocations); //logging ot check
 
 //search city submit
@@ -27,38 +36,29 @@ const formSubmitHandler = function (event) {
   //logging the seached item.
   console.log(searchLine.value.trim());
 
-  const tempCity = searchLine.value.trim();
+  const tempCity = searchLine.value.trim(); //storing the city name temporarily, incase it is not capitalized
 
   //check to make sure theres data in there
   if (tempCity) {
-    //storing the city name temporarily, incase it is not capitalized
-    const tempCity = searchLine.value.trim();
-
-    //function to turn it to title case
-    function toTitleCase(str) {
-      return str.replace(
-        /\w\S*/g,
-        (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
-      );
-    }
-
     //logging to check that capitalization worked
     console.log(`"${tempCity}" becomes "${toTitleCase(tempCity)}"`);
 
     //changing the real variable to the capitalized version
-    const city = tempCity;
+    const city = toTitleCase(tempCity);
 
-    const lS = localStorage.getItem("pastLocations") || [];
-    if (ls) {
-        
-    }
-    const pastLocations = JSON.parse(localStorage.getItem("pastLocations"));
+    console.log(pastLocations);
+
+    // if (pastLocations.length !== 0) {
+    //   pastLocations = JSON.parse("pastLocations");
+    // }
 
     //add city to the array of past searches
-    pastLocations.push(city);
-   
+    pastLocations.push(tempCity);
+
     //triggering storing the object to localStorage
     localStorage.setItem("pastLocations", JSON.stringify(pastLocations));
+
+    console.log(pastLocations);
 
     //logging to check
     console.log(city);
@@ -68,7 +68,8 @@ const formSubmitHandler = function (event) {
 
     //call the citySearch function
     citySearch(city);
-    renderButtons(pastLocations);
+    renderButtons();
+    $(searchLine).text("");
 
     //or if theres an error
   } else {
@@ -107,7 +108,7 @@ const citySearch = function (city) {
         //turn it into json then...
         response.json().then(function (data) {
           //log the data out so i can look through it
-          console.log(data);
+         // console.log(data);
 
           //get the bits of the data that i need (specifically the longitude adn latitude of the city)
           for (const location of data) {
@@ -119,7 +120,7 @@ const citySearch = function (city) {
               lat: location.lat,
             };
             //log to check
-            console.log(newLocation);
+          //  console.log(newLocation);
             //call the get weather functions that require the lat/lon
             getTodaysWeather(newLocation);
             // getForecast(newLocation);
@@ -151,7 +152,7 @@ const getTodaysWeather = function (newLocation) {
         const locationData = newLocation;
         displayTodaysWeather(data, locationData);
         //log so i can look though the data to see what i need
-        console.log(data);
+       // console.log(data);
       });
     } else {
       alert(`Error:${response.statusText}`);
@@ -208,7 +209,7 @@ const getForecast = function (locationData) {
   const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${locationData.lat}&lon=${locationData.lon}&appid=${apiKey}&units=${units}`;
 
   //log to check it
-  console.log(`FORCAST API URL: ${apiUrl}`);
+ // console.log(`FORCAST API URL: ${apiUrl}`);
 
   //get api then...
   fetch(apiUrl).then(function (response) {
@@ -217,7 +218,7 @@ const getForecast = function (locationData) {
       //then JSON the data
       response.json().then(function (data) {
         //log to check
-        console.log(data);
+       // console.log(data);
 
         //call the displayForcast function
         displayForecast(data);
@@ -233,12 +234,14 @@ const displayForecast = function (data) {
   //loop for the whole array (5 days)
   const refinedDays = [];
   for (let i = 0; i < data.list.length; i++) {
+    //only take array itemsoccuring at 12:00pm, so that theres only 1 object per day.
     if (data.list[i].dt_txt.includes("12:00:00")) {
       refinedDays.push(data.list[i]);
     }
   }
-  console.log(refinedDays);
+  //console.log(refinedDays);
 
+  //gather all weather info from those refined 5 days
   for (let i = 0; i < refinedDays.length; i++) {
     const dayCast = {
       temp: refinedDays[i].main.temp,
@@ -249,7 +252,7 @@ const displayForecast = function (data) {
       date: refinedDays[i].dt_txt,
     };
     //log to check
-    console.log(dayCast);
+    //console.log(dayCast);
 
     //get page info
     const nextTemp = document.querySelector(`#temp${i}`);
@@ -259,7 +262,7 @@ const displayForecast = function (data) {
     const nextIcon = document.querySelector(`#icon${i}`);
     const nextIconParent = document.querySelector(`#image-container${i}`);
     const nextDate = document.querySelector(`#date${i}`);
-    //fill in forecast info 
+    //fill in forecast info
     nextDate.textContent = dayjs(dayCast.date).format("ddd, MMM D");
     nextDate.className = "rowdies-bold p-2";
     nextTemp.textContent = `Tempterature: ${dayCast.temp} °C`;
@@ -274,14 +277,45 @@ const displayForecast = function (data) {
   }
 };
 
-const renderButtons = function (pastLocations){
-    pastLocations.forEach(location => {
-        const cityButton = $('<button>').addClass('city-button').text(location).attr('id', location)
-        
-        cityButtonsEl.append(cityButton);
-    });
-}
+
+//render the past searches as buttons
+const renderButtons = function () {
+
+  //first clear the area so there are not repeats
+$(cityButtonsEl).text("");
+
+//get localstorage data
+  let fromStor = localStorage.getItem("pastLocations");
+  //console.log(fromStor);
+  
+  pastLocations = JSON.parse(fromStor);
+
+  //console.log(pastLocations);
+
+  //if array is not empty, make buttons for each city on the array
+  if (pastLocations.length !== 0) {
+
+    for (let i = 0; i < pastLocations.length; i++) {
+      let location = pastLocations[i];
+
+      //console.log(location);
+
+      //make sentance case
+      location = toTitleCase(location);
+
+      //create button
+      const cityButton = document.createElement("button");
+      //give button info
+      $(cityButton).addClass("city-button").text(location).attr("id", location);
+
+      //add button to button section
+      cityButtonsEl.append(cityButton);
+    }
+  }
+};
 
 //event listener
 searchEl.addEventListener("click", formSubmitHandler);
 cityButtonsEl.addEventListener("click", buttonClickHandler);
+
+renderButtons();
