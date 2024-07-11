@@ -16,8 +16,8 @@ let days = 5;
 let units = "metric";
 
 //check local storage for past city name searches
-// const pastLocations = json.parse(localStorage.getItem("pastLocations")) || [];
-// console.log(pastLocations); //logging ot check
+const pastLocations = localStorage.getItem("pastLocations") || [];
+console.log(pastLocations); //logging ot check
 
 //search city submit
 const formSubmitHandler = function (event) {
@@ -48,6 +48,18 @@ const formSubmitHandler = function (event) {
     //changing the real variable to the capitalized version
     const city = tempCity;
 
+    const lS = localStorage.getItem("pastLocations") || [];
+    if (ls) {
+        
+    }
+    const pastLocations = JSON.parse(localStorage.getItem("pastLocations"));
+
+    //add city to the array of past searches
+    pastLocations.push(city);
+   
+    //triggering storing the object to localStorage
+    localStorage.setItem("pastLocations", JSON.stringify(pastLocations));
+
     //logging to check
     console.log(city);
 
@@ -56,6 +68,7 @@ const formSubmitHandler = function (event) {
 
     //call the citySearch function
     citySearch(city);
+    renderButtons(pastLocations);
 
     //or if theres an error
   } else {
@@ -260,6 +273,14 @@ const displayForecast = function (data) {
     nextIconParent.appendChild(nextIcon); //adds image to page
   }
 };
+
+const renderButtons = function (pastLocations){
+    pastLocations.forEach(location => {
+        const cityButton = $('<button>').addClass('city-button').text(location).attr('id', location)
+        
+        cityButtonsEl.append(cityButton);
+    });
+}
 
 //event listener
 searchEl.addEventListener("click", formSubmitHandler);
