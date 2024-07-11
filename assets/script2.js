@@ -306,7 +306,7 @@ $(cityButtonsEl).text("");
       //create button
       const cityButton = document.createElement("button");
       //give button info
-      $(cityButton).addClass("city-button").text(location).attr("id", location);
+      $(cityButton).addClass("city-button btn btn-primary m-1").text(location).attr("id", location);
 
       //add button to button section
       cityButtonsEl.append(cityButton);

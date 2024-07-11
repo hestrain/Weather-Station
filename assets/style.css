@@ -1,4 +1,4 @@
-h1 {
+header {
     background-color: blue;
     color: aliceblue;
     width: 100%;
@@ -7,6 +7,10 @@ h1 {
 
 #icon {
     width: 30px;
+}
+
+h5 {
+  margin-top: 20px;
 }
 
 .rowdies-light {
