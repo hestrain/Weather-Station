@@ -93,7 +93,7 @@ const buttonClickHandler = function (event) {
 //uses api to get city info
 const citySearch = function (city) {
   //api url with our variables in it
-  const apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}}&limit=5&appid=${apiKey}`;
+  const apiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}}&limit=5&appid=${apiKey}`;
 
   //fetches the api info
   fetch(apiUrl)
