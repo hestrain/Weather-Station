@@ -24,7 +24,7 @@ function toTitleCase(str) {
 }
 
 //check local storage for past city name searches
-let pastLocations = JSON.stringify(localStorage.getItem("pastLocations") ) || [];
+let pastLocations = JSON.parse(localStorage.getItem("pastLocations") ) || [];
 
 console.log(pastLocations); //logging ot check
 
@@ -47,10 +47,6 @@ const formSubmitHandler = function (event) {
     const city = toTitleCase(tempCity);
 
     console.log(pastLocations);
-
-    // if (pastLocations.length !== 0) {
-    //   pastLocations = JSON.parse("pastLocations");
-    // }
 
     //add city to the array of past searches
     pastLocations.push(tempCity);
@@ -284,34 +280,28 @@ const renderButtons = function () {
   //first clear the area so there are not repeats
 $(cityButtonsEl).text("");
 
-//get localstorage data
-  let fromStor = localStorage.getItem("pastLocations");
-  //console.log(fromStor);
-  
-  pastLocations = JSON.parse(fromStor);
-
-  //console.log(pastLocations);
+  console.log(pastLocations);
 
   //if array is not empty, make buttons for each city on the array
-  if (pastLocations.length !== 0) {
+  if (pastLocations.length) {
 
     for (let i = 0; i < pastLocations.length; i++) {
-      let location = pastLocations[i];
+      let loc = pastLocations[i];
 
       //console.log(location);
 
       //make sentance case
-      location = toTitleCase(location);
+      loc = toTitleCase(loc);
 
       //create button
       const cityButton = document.createElement("button");
       //give button info
-      $(cityButton).addClass("city-button btn btn-primary m-1").text(location).attr("id", location);
+      $(cityButton).addClass("city-button btn btn-primary m-1").text(loc).attr("id", loc);
 
       //add button to button section
       cityButtonsEl.append(cityButton);
     }
-  }
+  } 
 };
 
 //event listener
