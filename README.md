@@ -5,11 +5,12 @@ challenge 6 - weather dashboard fr module 6 server APIs.
 
 Below are screenshots to see the final product: 
 
-![lannding page](/Weather-Station/assets/images/weather-landing.png)
+<img width="1201" alt="weather-landing" src="https://github.com/user-attachments/assets/e55ce555-8a03-492c-bdfc-d53e27675307">
 
-![Search & display](/Weather-Station/assets/images/weather-display.png)
+<img width="892" alt="weather-display" src="https://github.com/user-attachments/assets/dd07a650-9e96-41f6-ae09-b111a2d92709">
 
-![new buttony](/Weather-Station/assets/images/weather-new-button.png)
+<img width="916" alt="weather-new-button" src="https://github.com/user-attachments/assets/e4fe394b-a151-4237-aeee-d63ad91659e8">
+
 
 ## Installation
 
@@ -18,8 +19,8 @@ N/A
 ## Usage
 This webpage can be used to search for cities to view todayd weather & a 5 day forecast.
 
-The live webpage can be found hosted on github at the following link: hestrain.github.io/Weather-Station
-The code repository can be found on github at the following link: https://github.com/hestrain/Weather-Station
+The live webpage can be found hosted on github at the following link: [Deployed Page](hestrain.github.io/Weather-Station)
+The code repository can be found on github at the following link: [Repository](https://github.com/hestrain/Weather-Station)
 
 ## Credits
 
